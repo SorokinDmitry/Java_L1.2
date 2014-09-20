@@ -52,7 +52,7 @@ public class SigninServlet extends HttpServlet {
         // Обработка запроса + формирование ответа
         Map<String, Object> pageVariables = new HashMap<>();
         if (accountService.usersContainsKey(login)) {
-            if (password == accountService.getPasswordByLogin(login)) {
+            if (password.equals(accountService.getPasswordByLogin(login))) {
                 accountService.addSession(request.getSession().getId(), login);
                 response.setStatus(HttpServletResponse.SC_OK);
                 response.sendRedirect("/main");

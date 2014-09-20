@@ -10,12 +10,24 @@ public class AccountService {
     private Map<String, UserProfile> users = new HashMap<String, UserProfile>();
     private Map<String, UserProfile> sessions = new HashMap<String, UserProfile>();
 
+    public AccountService() {
+        addUser(new UserProfile("admin","admin",""));
+    }
+
     public void addUser(UserProfile user) {
         this.users.put(user.getLogin(), user);
     }
 
     public void addSession(String id, String login) {
         this.sessions.put(id, users.get(login));
+    }
+
+    public int getCountOfUsers() {
+        return this.users.size();
+    }
+
+    public int getCountOfSessions() {
+        return this.sessions.size();
     }
 
     public void deleteSession(String id) {
