@@ -11,7 +11,8 @@ public class AccountService {
     private Map<String, UserProfile> sessions = new HashMap<String, UserProfile>();
 
     public AccountService() {
-        addUser(new UserProfile("admin","admin",""));
+        addUser(new UserProfile("admin","admin","admin@admin.ru"));
+        addUser(new UserProfile("dmitr","","sorokin.dmitr@yandex.ru"));
     }
 
     public void addUser(UserProfile user) {

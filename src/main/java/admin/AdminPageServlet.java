@@ -26,15 +26,27 @@ public class AdminPageServlet extends HttpServlet {
         Map<String, Object> pageVariables = new HashMap<>();
         String timeString = request.getParameter("shutdown");
         if (timeString != null) {
-            int timeMS = Integer.valueOf(timeString);
-            System.out.print("Server will be down after: "+ timeMS + " ms");
-            TimeHelper.sleep(timeMS);
-            System.out.print("\nShutdown");
-            System.exit(0);
+            // Получение логина активного пользователя
+            String sessionId = request.getSession().getId();
+            String login = null;
+            if (accountService.sessionsContainsKey(sessionId)) {
+                login = accountService.getUserProfileBySessionId(sessionId).getLogin();
+            }
+            if ( login != null && login.equals("admin")) {
+                int timeMS = Integer.valueOf(timeString);
+                System.out.print("Server will be down after: "+ timeMS + " ms");
+                TimeHelper.sleep(timeMS);
+                System.out.print("\nShutdown");
+                response.sendRedirect("/main");
+                System.exit(0);
+            } else {
+                pageVariables.put("login", login);
+                pageVariables.put("warning", "you don't have administrator rights!");
+            }
         }
         pageVariables.put("status", "run");
         pageVariables.put("CountOfUsersInDatabase", accountService.getCountOfUsers());
         pageVariables.put("CountOfUsersOnline", accountService.getCountOfSessions());
-        response.getWriter().println(PageGenerator.getPage("admin.tml", pageVariables));
+        response.getWriter().println(PageGenerator.getPage("admin.html", pageVariables));
     }
 }

@@ -9,7 +9,7 @@
 <#if !login?? >
 	<p><a href="/auth/signin">SignIn</a></p>
 <#else>
-	<p>Hello, ${login}. <a href="/auth/logout">Exit</a></p>
+	<p>Hello, <a href="/profile">${login}</a>. <a href="/auth/logout">Exit</a></p>
 </#if>
 
 </body>

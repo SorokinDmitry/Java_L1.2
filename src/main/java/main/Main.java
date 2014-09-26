@@ -32,6 +32,7 @@ public class Main {
         Servlet mainservlet = new MainPageServlet(accountService);
         Servlet logoutservlet = new LogoutServlet(accountService);
         Servlet adminservlet = new AdminPageServlet(accountService);
+        Servlet profileservlet = new ProfileServlet(accountService);
 
         Server server = new Server(port);
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
@@ -40,6 +41,7 @@ public class Main {
         context.addServlet(new ServletHolder(signinservlet), "/auth/signin");
         context.addServlet(new ServletHolder(logoutservlet), "/auth/logout");
         context.addServlet(new ServletHolder(mainservlet), "/main");
+        context.addServlet(new ServletHolder(profileservlet), "/profile");
         context.addServlet(new ServletHolder(adminservlet), "/admin");
 
         ResourceHandler resource_handler = new ResourceHandler();
